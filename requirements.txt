@@ -1,23 +1,16 @@
-pymongo[srv]
-# --- Core Frameworks ---
 fastapi
-uvicorn[standard]
-
-# --- AI Integration ---
-google-generativeai
-
-# --- MongoDB ---
-pymongo
+uvicorn
 python-dotenv
-
-# --- Image Processing ---
-Pillow
-
-# --- Data Handling ---
-numpy
-
-# --- Multipart Support ---
+pillow
+google-generativeai
 python-multipart
-
-
-
+Streamlit
+pandas
+pymongo
+speechrecognition
+sounddevice
+scipy
+numpy
+python-magic
+aiofiles
+PortAudio
