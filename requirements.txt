@@ -7,7 +7,10 @@ python-multipart
 Streamlit
 pandas
 pymongo
+speechrecognition
+sounddevice
+scipy
 numpy
+python-magic
 aiofiles
-
-
+PortAudio
