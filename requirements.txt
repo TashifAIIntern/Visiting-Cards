@@ -1,3 +1,4 @@
+pymongo[srv]
 fastapi
 uvicorn
 python-dotenv
@@ -14,3 +15,4 @@ numpy
 python-magic
 aiofiles
 PortAudio
+
