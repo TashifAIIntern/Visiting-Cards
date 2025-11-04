@@ -13,3 +13,4 @@ scipy
 numpy
 python-magic
 aiofiles
+PortAudio
