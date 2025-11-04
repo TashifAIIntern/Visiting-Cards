@@ -24,7 +24,7 @@ import uuid
 load_dotenv()
 
 # MongoDB Configuration for Visiting Cards
-MONGODB_URI = os.getenv("MONGODB_URI", "mongodb://localhost:27017/Visiting_Card_DB")
+MONGODB_URI = os.getenv("MONGODB_URI", "mongodb+srv://aiintern_db_user:Tashif7407@cluster0.wmt5taf.mongodb.net/?appName=Cluster0")
 DB_NAME = "Visiting_Card_DB"
 CARDS_COLLECTION_NAME = "Visiting_Card"
 REMARKS_COLLECTION_NAME = "user_remarks"
@@ -891,3 +891,4 @@ with st.sidebar:
     • 💾 Secure database storage
     • 📱 Mobile number detection
     """)
+
