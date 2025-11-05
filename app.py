@@ -31,7 +31,7 @@ REMARKS_COLLECTION_NAME = "user_remarks"
 # MONGODB SETUP - VISITING CARDS
 # ==========================
 def get_mongo_client():
-    """Get MongoDB client connection with Atlas compatibility."""
+    """Get MongoDB client connection with Atlas compatibility (fixed for PyMongo 4.x)."""
     try:
         client = pymongo.MongoClient(
             MONGODB_URI,
@@ -39,20 +39,20 @@ def get_mongo_client():
             connectTimeoutMS=15000,
             socketTimeoutMS=15000,
             tls=True,
-            tlsVersion="TLSv1_2",  # Force TLS 1.2
-            tlsAllowInvalidCertificates=False,
             retryWrites=True,
-            retryReads=True
+            retryReads=True,
+            # Modern PyMongo 4.x uses `tlsAllowInvalidCertificates`
+            tlsAllowInvalidCertificates=False
         )
         # Test connection
         client.admin.command('ping')
-        print("MongoDB Atlas connected successfully!")
+        print("✅ MongoDB Atlas connected successfully!")
         return client
-    except pymongo.errors.ServerSelectionTimeoutError as e:  # Changed from ConnectionError
-        st.error(f"MongoDB Connection Error: {str(e)}")
+    except pymongo.errors.ServerSelectionTimeoutError as e:
+        st.error(f"❌ MongoDB Connection Timeout: {str(e)}")
         return None
     except Exception as e:
-        st.error(f"Failed to connect to MongoDB: {str(e)}")
+        st.error(f"❌ Failed to connect to MongoDB: {str(e)}")
         return None
 
 def init_database():
@@ -916,6 +916,7 @@ with st.sidebar:
     • 💾 Secure database storage
     • 📱 Mobile number detection
     """)
+
 
 
 
