@@ -8,8 +8,9 @@ streamlit
 pandas
 pymongo
 speechrecognition
-sounddevice
+#sounddevice
 scipy
 numpy
 python-magic
 aiofiles
+
