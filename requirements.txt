@@ -4,7 +4,7 @@ python-dotenv
 pillow
 google-generativeai
 python-multipart
-Streamlit
+streamlit
 pandas
 pymongo
 speechrecognition
@@ -13,4 +13,3 @@ scipy
 numpy
 python-magic
 aiofiles
-
