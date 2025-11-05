@@ -775,7 +775,8 @@ if st.session_state.show_remarks_section:
         # Use a form with a unique key for the record button
         record_form_key = "record_form_" + str(hash(st.session_state.user_remarks))
         with st.form(key=record_form_key):
-            record_submitted = st.form_submit_button("🎙️ Record Voice", use_container_width=True)
+            record_submitted = st.form_submit_button("🎙️ Record Voice", disabled=True)
+            st.warning("Voice recording is not supported on this hosted version. Use text input instead.")
             
             if record_submitted:
                 with st.spinner("🎤 Recording... Speak now!"):
@@ -896,5 +897,6 @@ with st.sidebar:
     • 💾 Secure database storage
     • 📱 Mobile number detection
     """)
+
 
 
