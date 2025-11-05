@@ -31,14 +31,21 @@ REMARKS_COLLECTION_NAME = "user_remarks"
 # MONGODB SETUP - VISITING CARDS
 # ==========================
 def get_mongo_client():
+    """Get MongoDB client connection - works on Render + Atlas"""
     try:
         client = pymongo.MongoClient(
             MONGODB_URI,
-            serverSelectionTimeoutMS=5000,
-            ssl=True,  # Explicitly enable SSL
-            ssl_cert_reqs="CERT_NONE"  # Temporary workaround (see Step 4 for security)
+            serverSelectionTimeoutMS=10000,                 # 10 seconds
+            connectTimeoutMS=10000,
+            socketTimeoutMS=10000,
+            tls=True,                                       # Force TLS
+            tlsAllowInvalidCertificates=True,               # <-- THIS IS THE FIX
+            retryWrites=True,
+            retryReads=True
         )
+        # Test the connection
         client.admin.command('ping')
+        print("MongoDB Atlas connected successfully!")
         return client
     except Exception as e:
         st.error(f"Failed to connect to MongoDB: {str(e)}")
@@ -905,6 +912,7 @@ with st.sidebar:
     • 💾 Secure database storage
     • 📱 Mobile number detection
     """)
+
 
 
 
