@@ -161,6 +161,7 @@ def extract_data_from_gemini_response(response_text):
     """Extract structured data from Gemini response text"""
     data = {
         "Person Name": "",
+        "Person Department": "",
         "Company Name": "", 
         "Email": "",
         "Phone Numbers": "",
@@ -186,6 +187,8 @@ def extract_data_from_gemini_response(response_text):
             # Handle different field names
             if key.lower() in ['person name', 'name']:
                 data['Person Name'] = value
+            elif key.lower() in ['person department', 'department', 'designation', 'job title', 'role']: 
+                data['Person Department'] = value
             elif key.lower() in ['company name', 'company']:
                 data['Company Name'] = value
             elif key.lower() in ['email', 'email address']:
@@ -210,7 +213,7 @@ def format_data_as_text(data: dict, mobile_numbers: list):
     found_data = False
     
     # Base fields
-    base_fields = ["Person Name", "Company Name", "Email", "Phone Numbers", "Address", "Website", "Country Code"]
+    base_fields = ["Person Name", "Person Department", "Company Name", "Email", "Phone Numbers", "Address", "Website", "Country Code"]
     
     for key in base_fields:
         value = data.get(key, "")
@@ -250,6 +253,7 @@ def extract_visiting_card_with_gemini(file_data, file_type):
 
     REQUIRED FIELDS (format exactly as shown):
     Person Name: [Full name of the person]
+    Person Department: [Department / Role / Job title of the person]
     Company Name: [Company or organization name]
     Email: [Email address]
     Phone Numbers: [8-digit numbers only, comma separated if multiple. Example: 12345678, 87654321]
@@ -272,6 +276,7 @@ def extract_visiting_card_with_gemini(file_data, file_type):
 
     Example output format:
     Person Name: John Doe
+    Person Department: Marketing Manager
     Company Name: ABC Corporation
     Email: john.doe@abccorp.com
     Phone Numbers: 22334455, 66778899
@@ -311,6 +316,7 @@ def extract_visiting_card_with_gemini(file_data, file_type):
                 "text_output": text_output,
                 "formatted_data": {
                     "person_name": data.get("Person Name", ""),
+                    "person_department": data.get("Person Department", ""),
                     "company_name": data.get("Company Name", ""),
                     "email": data.get("Email", ""),
                     "phone_numbers": data.get("Phone Numbers", ""),
@@ -910,6 +916,7 @@ with st.sidebar:
     • 💾 Secure database storage
     • 📱 Mobile number detection
     """)
+
 
 
 
