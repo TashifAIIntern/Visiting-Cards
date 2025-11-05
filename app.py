@@ -13,6 +13,7 @@ import io
 import pymongo
 from datetime import datetime
 import uuid
+from pymongo import MongoClient
 
 # ==========================
 # CONFIGURATION
@@ -31,28 +32,21 @@ REMARKS_COLLECTION_NAME = "user_remarks"
 # MONGODB SETUP - VISITING CARDS
 # ==========================
 def get_mongo_client():
-    """Get MongoDB client connection with Atlas compatibility (fixed for PyMongo 4.x)."""
-    try:
-        client = pymongo.MongoClient(
-            MONGODB_URI,
-            serverSelectionTimeoutMS=15000,
-            connectTimeoutMS=15000,
-            socketTimeoutMS=15000,
-            tls=True,
-            retryWrites=True,
-            retryReads=True,
-            # Modern PyMongo 4.x uses `tlsAllowInvalidCertificates`
-            tlsAllowInvalidCertificates=False
-        )
-        # Test connection
-        client.admin.command('ping')
-        print("✅ MongoDB Atlas connected successfully!")
-        return client
-    except pymongo.errors.ServerSelectionTimeoutError as e:
-        st.error(f"❌ MongoDB Connection Timeout: {str(e)}")
+    """Establish a MongoDB Atlas connection using SRV URI."""
+    uri = os.getenv("MONGODB_URI")
+
+    if not uri:
+        st.error("❌ MONGODB_URI not found in environment variables.")
         return None
+
+    try:
+        client = MongoClient(uri, serverSelectionTimeoutMS=10000)
+        client.admin.command("ping")
+        print("✅ Successfully connected to MongoDB Atlas!")
+        return client
     except Exception as e:
-        st.error(f"❌ Failed to connect to MongoDB: {str(e)}")
+        st.error(f"❌ MongoDB connection error: {e}")
+        print(f"❌ MongoDB connection error: {e}")
         return None
 
 def init_database():
@@ -916,6 +910,7 @@ with st.sidebar:
     • 💾 Secure database storage
     • 📱 Mobile number detection
     """)
+
 
 
 
