@@ -20,7 +20,9 @@ import uuid
 load_dotenv()
 
 # MongoDB Configuration for Visiting Cards
-MONGODB_URI = os.getenv("MONGODB_URI", "mongodb://localhost:27017/Visiting_Card_DB")
+MONGODB_URI = os.getenv("MONGODB_URI")
+if not MONGODB_URI:
+    st.error("MONGODB_URI environment variable is not set.")
 DB_NAME = "Visiting_Card_DB"
 CARDS_COLLECTION_NAME = "Visiting_Card"
 REMARKS_COLLECTION_NAME = "user_remarks"
@@ -900,6 +902,7 @@ with st.sidebar:
     • 💾 Secure database storage
     • 📱 Mobile number detection
     """)
+
 
 
 
