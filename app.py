@@ -103,13 +103,11 @@ def save_remarks_to_mongodb(remarks_data):
 # ==========================
 # SPEECH TO TEXT FUNCTIONALITY
 # ==========================
-import os
-if os.getenv('RENDER') == 'True':  # Or check if in cloud env
-    print("Audio recording not supported in this environment.")
-    return ""
-    
 def record_audio(duration=10):
     """Record audio and return the transcribed text."""
+    if os.getenv('RENDER') == 'True':
+        print("Audio recording not supported in this environment.")
+        return ""
     try:
         # Record audio
         fs = 16000
@@ -897,6 +895,7 @@ with st.sidebar:
     • 💾 Secure database storage
     • 📱 Mobile number detection
     """)
+
 
 
 
