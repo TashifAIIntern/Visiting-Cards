@@ -31,6 +31,7 @@ REMARKS_COLLECTION_NAME = "user_remarks"
 # MONGODB SETUP - VISITING CARDS
 # ==========================
 def get_mongo_client():
+    """Get MongoDB client connection with Atlas compatibility."""
     try:
         client = pymongo.MongoClient(
             MONGODB_URI,
@@ -43,10 +44,11 @@ def get_mongo_client():
             retryWrites=True,
             retryReads=True
         )
+        # Test connection
         client.admin.command('ping')
         print("MongoDB Atlas connected successfully!")
         return client
-    except pymongo.errors.ConnectionError as e:
+    except pymongo.errors.ServerSelectionTimeoutError as e:  # Changed from ConnectionError
         st.error(f"MongoDB Connection Error: {str(e)}")
         return None
     except Exception as e:
@@ -914,6 +916,7 @@ with st.sidebar:
     • 💾 Secure database storage
     • 📱 Mobile number detection
     """)
+
 
 
 
