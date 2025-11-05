@@ -12,10 +12,6 @@ import time
 import io
 import pymongo
 from datetime import datetime
-import sounddevice as sd
-from scipy.io.wavfile import write
-import numpy as np
-import speech_recognition as sr
 import uuid
 
 # ==========================
@@ -103,6 +99,15 @@ def save_remarks_to_mongodb(remarks_data):
 # ==========================
 # SPEECH TO TEXT FUNCTIONALITY
 # ==========================
+import os
+if os.getenv('RENDER') != 'True':
+    import sounddevice as sd
+    from scipy.io.wavfile import write
+    import numpy as np
+    import speech_recognition as sr
+else:
+    sd = None  # Placeholder to avoid undefined variable errors
+    
 def record_audio(duration=10):
     """Record audio and return the transcribed text."""
     if os.getenv('RENDER') == 'True':
@@ -895,6 +900,7 @@ with st.sidebar:
     • 💾 Secure database storage
     • 📱 Mobile number detection
     """)
+
 
 
 
