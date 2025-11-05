@@ -1,8 +1,3 @@
-import os
-if os.getenv('RENDER') == 'True':  # Or check if in cloud env
-    print("Audio recording not supported in this environment.")
-    return ""
-    
 # Updated code with python + Streamlit + Image and Import + MongoDB + Speech to Text.
 import streamlit as st
 import google.generativeai as genai
@@ -108,6 +103,11 @@ def save_remarks_to_mongodb(remarks_data):
 # ==========================
 # SPEECH TO TEXT FUNCTIONALITY
 # ==========================
+import os
+if os.getenv('RENDER') == 'True':  # Or check if in cloud env
+    print("Audio recording not supported in this environment.")
+    return ""
+    
 def record_audio(duration=10):
     """Record audio and return the transcribed text."""
     try:
@@ -896,4 +896,5 @@ with st.sidebar:
     • 💾 Secure database storage
     • 📱 Mobile number detection
     """)
+
 
